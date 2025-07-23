@@ -1,4 +1,3 @@
-// --- App.jsx ---
 import React, { useState, useEffect } from 'react';
 import PedidoCard from './components/PedidoCard';
 import FormPedido from './components/FormPedido';
@@ -57,12 +56,31 @@ export default function App() {
     }
   };
 
+  // Total de pedidos entregues
   const entregues = pedidos.filter(p => p.entregue).length;
+
+  // Valor total dos pedidos entregues
   const totalEntregues = pedidos.reduce(
     (soma, p) => soma + (p.entregue ? Number(p.valor || 0) : 0),
     0
   );
 
+  // Totais pendentes por item (não entregues)
+  const totaisPendentes = {
+    Morango: 0,
+    Cookie: 0,
+    'Bolo de Pote': 0,
+  };
+
+  pedidos.forEach(p => {
+    if (!p.entregue && p.itens) {
+      totaisPendentes.Morango += Number(p.itens.Morango || 0);
+      totaisPendentes.Cookie += Number(p.itens.Cookie || 0);
+      totaisPendentes['Bolo de Pote'] += Number(p.itens['Bolo de Pote'] || 0);
+    }
+  });
+
+  // Ordenar pedidos: não entregues primeiro, depois entregues
   const pedidosOrdenados = [
     ...pedidos.filter(p => !p.entregue),
     ...pedidos.filter(p => p.entregue),
@@ -71,12 +89,21 @@ export default function App() {
   return (
     <div className="container">
       <h1 className="logo">STAR <span>Doces</span></h1>
-      <button className="botao" onClick={adicionarPedido}>+ ADICIONAR PEDIDO</button>
-      <button className="botao limpar" onClick={limparDados}>LIMPAR DADOS</button>
+
+      <div className="botoes">
+        <button className="botao" onClick={adicionarPedido}>🧾 Adicionar Pedido</button>
+        <button className="botao limpar" onClick={limparDados}>🗑 Limpar Dados</button>
+      </div>
 
       <div className="status">
         Pedidos Entregues: {entregues}/{pedidos.length} &nbsp;
-        Valor total R$: {totalEntregues.toFixed(2)}
+        | Valor total R$: {totalEntregues.toFixed(2)}
+      </div>
+
+      <div className="status" style={{ marginTop: '0.5rem', fontSize: '1rem' }}>
+        Morangos pendentes: {totaisPendentes.Morango} &nbsp;|&nbsp;
+        Cookies pendentes: {totaisPendentes.Cookie} &nbsp;|&nbsp;
+        Bolos de Pote pendentes: {totaisPendentes['Bolo de Pote']}
       </div>
 
       {modoEdicao && (
@@ -87,18 +114,20 @@ export default function App() {
         />
       )}
 
-      {pedidosOrdenados.map((pedido, index) => (
-        <PedidoCard
-          key={pedido.id}
-          pedido={pedido}
-          index={index + 1}
-          onEditar={() => {
-            setPedidoEditando(pedido);
-            setModoEdicao(true);
-          }}
-          onStatusChange={atualizarStatus}
-        />
-      ))}
+      <div className="lista-pedidos">
+        {pedidosOrdenados.map((pedido, index) => (
+          <PedidoCard
+            key={pedido.id}
+            pedido={pedido}
+            index={index + 1}
+            onEditar={() => {
+              setPedidoEditando(pedido);
+              setModoEdicao(true);
+            }}
+            onStatusChange={atualizarStatus}
+          />
+        ))}
+      </div>
     </div>
   );
 }

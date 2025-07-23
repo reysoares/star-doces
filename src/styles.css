@@ -129,3 +129,49 @@ label {
   width: 100%;
   border-top: 1px solid #ddd;
 }
+
+.botao span {
+  margin-left: 0.4rem;
+}
+
+.checkbox-card:hover {
+  background-color: #ffe4ee;
+}
+.checkbox-card.selecionado {
+  border: 2px solid hotpink;
+  background-color: #ffe4ee;
+  font-weight: bold;
+}
+
+.botao i {
+  margin-right: 0.4rem;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  justify-content: center;
+}
+
+.checkbox-card {
+  padding: 0.8rem;
+  border-radius: 12px;
+  background-color: #fff7f7;
+  border: 2px solid #f3c6dc;
+  text-align: center;
+  width: 150px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.05);
+  font-size: 0.95rem;
+}
+
+.checkbox-card input[type="number"] {
+  margin-top: 0.3rem;
+  width: 60px;
+  text-align: center;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
