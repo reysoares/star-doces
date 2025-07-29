@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 const PRECOS = {
   Morango: 7.0,
   Cookie: 7.0,
-  'Bolo de Pote': 8.0,
+  'Bolo de Pote': 7.0,
+  Uva: 3.0,
+  Maracujá: 8.0,
 };
 
 export default function FormPedido({ pedido, onSalvar, onDeletar }) {
@@ -13,6 +15,8 @@ export default function FormPedido({ pedido, onSalvar, onDeletar }) {
       Morango: 0,
       Cookie: 0,
       'Bolo de Pote': 0,
+      Uva: 0,
+      Maracujá: 0,
     },
     entrega: false,
     endereco: '',
@@ -29,6 +33,8 @@ export default function FormPedido({ pedido, onSalvar, onDeletar }) {
           Morango: 0,
           Cookie: 0,
           'Bolo de Pote': 0,
+          Uva: 0,
+          Maracujá: 0,
           ...pedido.itens
         }
       });

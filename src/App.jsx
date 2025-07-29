@@ -70,6 +70,8 @@ export default function App() {
     Morango: 0,
     Cookie: 0,
     'Bolo de Pote': 0,
+    Uva: 0,
+    Maracujá: 0,
   };
 
   pedidos.forEach(p => {
@@ -77,6 +79,8 @@ export default function App() {
       totaisPendentes.Morango += Number(p.itens.Morango || 0);
       totaisPendentes.Cookie += Number(p.itens.Cookie || 0);
       totaisPendentes['Bolo de Pote'] += Number(p.itens['Bolo de Pote'] || 0);
+      totaisPendentes.Uva += Number(p.itens.Uva || 0);
+      totaisPendentes.Maracujá += Number(p.itens.Maracujá || 0);
     }
   });
 
@@ -103,7 +107,9 @@ export default function App() {
       <div className="status" style={{ marginTop: '0.5rem', fontSize: '1rem' }}>
         Morangos pendentes: {totaisPendentes.Morango} &nbsp;|&nbsp;
         Cookies pendentes: {totaisPendentes.Cookie} &nbsp;|&nbsp;
-        Bolos de Pote pendentes: {totaisPendentes['Bolo de Pote']}
+        Bolos de Pote pendentes: {totaisPendentes['Bolo de Pote']} &nbsp;|&nbsp;
+        Uvas pendentes: {totaisPendentes.Uva} &nbsp;|&nbsp;
+        Maracujás pendentes: {totaisPendentes.Maracujá}
       </div>
 
       {modoEdicao && (
